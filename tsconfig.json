@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "strict": true,
+        "outDir": "build",
+        "declaration": false,
+        "module": "es2015",
+        "importHelpers": true,
+        "experimentalDecorators": true,
+        "lib": [
+            "dom",
+            "es2015",
+            "es2016"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedLocals": true,
+        "typeRoots": [
+            "node_modules/@types",
+            "extra-types"
+        ]
+    },
+    "exclude": [
+        "node_modules/"
+    ]
+}
