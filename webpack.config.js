@@ -25,11 +25,13 @@ module.exports = {
         port: 8005,
         compress: true,
         contentBase: 'public/',
+        https: true,
+        //stats: 'verbose',
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: 'src/player/index.html',
-            filename: 'player.html',
+            filename: 'index.html',
             minify: {
                 removeComments: true,
                 collapseWhitespace: true
