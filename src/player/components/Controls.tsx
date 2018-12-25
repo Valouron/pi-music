@@ -6,10 +6,14 @@ import { Button, TextField } from '@material-ui/core';
 import { store } from '../store';
 
 @observer
-export class Controls extends Component {
+export class Controls extends Component<{}, { value: string }> {
 
-    state = {
-        value: '',
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            value: '3.14159265358979323846264338327',
+        };
+        updateText(this.state.value);
     }
 
     inputChanged(value: string) {
