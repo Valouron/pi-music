@@ -12,7 +12,7 @@ export interface Note {
     volume: number
     note: string
     duration: number
-    digit: number
+    digit: number | string
 }
 
 export const store = observable<Store>({
@@ -78,7 +78,19 @@ export const store = observable<Store>({
             digit: 9,
             duration: 0.5,
             volume: 0.5,
-        }
+        },
+        10: {
+            note: "E4",
+            digit: "a",
+            duration: 0.5,
+            volume: 0.5,
+        },
+        11: {
+            note: "D4",
+            digit: "b",
+            duration: 0.5,
+            volume: 0.5,
+        },
     },
     speed: 1,
 });
