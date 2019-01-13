@@ -21,6 +21,7 @@ module.exports = {
         filename: '[name].js',
         path: resolve('build/'),
     },
+	devtool: isProd ? false: 'inline-source-map',
     devServer: {
         port: 8005,
         compress: true,
