@@ -12,6 +12,11 @@ let synth: any = new Tone.FMSynth().toMaster();
 let timeoutId: number = 0;
 
 autorun(() => {
+    const bpm = store.bpm;
+    Tone.Transport.bpm.value = bpm;
+});
+
+autorun(() => {
     const notes = store.notes;
     const isplaying = store.playing;
     const speed = store.speed;

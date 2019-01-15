@@ -15,7 +15,6 @@ const hash = 'sha1:hash:hex:8';
 module.exports = {
     entry: {
         player: './src/player/index.tsx',
-        control: './src/control/index.tsx'
     },
     output: {
         filename: '[name].js',
@@ -38,15 +37,6 @@ module.exports = {
                 collapseWhitespace: true
             },
             chunks: ['player']
-        }),
-        new HtmlWebpackPlugin({
-            template: 'src/control/index.html',
-            filename: 'control.html',
-            minify: {
-                removeComments: true,
-                collapseWhitespace: true
-            },
-            chunks: ['control']
         }),
         extractSass
     ],
