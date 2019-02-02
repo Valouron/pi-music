@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { observer } from 'mobx-react';
-import { updateText, updateBase } from '../../actions';
+import { updateText, updateBase, updateBpm, updatePlaying } from '../../actions';
 import { Button, TextField, Select, MenuItem, Grid, Typography } from '@material-ui/core';
 import { Slider } from '@material-ui/lab'
 import { store } from '../../store';
@@ -22,19 +22,19 @@ export class Controls extends Component {
         const { base, inputText } = store;
         return <>
             <Grid item xs={12}>
-                <Button variant="contained" color="primary" onClick={() => store.playing = !store.playing}>{store.playing ? 'Restart': 'Play'}</Button>
+                <Button variant="contained" color="primary" onClick={() => updatePlaying(!store.playing) }>{store.playing ? 'Restart': 'Play'}</Button>
                 <TextField onChange={(ev) => this.inputChanged(ev.target.value)} value={inputText}></TextField>
             </Grid>
             <Grid item xs={6}>
                 <Typography variant="subtitle1">Gamme</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Grid item container>
+                <Grid item container direction="column">
                     <Grid item>
                         <Typography variant="subtitle1">Tempo</Typography>
                     </Grid>
                     <Grid item>
-                        <Slider value={store.bpm} max={240} min={60} onChange={(_, value) => store.bpm = value}></Slider>
+                        <Slider value={store.bpm} max={240} min={60} onChange={(_, value) => updateBpm(value)}></Slider>
                     </Grid>
                     <Grid item>
                         <Typography variant="subtitle1">Options</Typography>

@@ -17,3 +17,11 @@ export const updateBase = action((newBase: number) => {
 export const updateText = action((value: string) => {
     store.inputText = value;
 });
+
+export const updateBpm = action((newBpm: number) => {
+    store.bpm = newBpm;
+});
+
+export const updatePlaying = action((newPlaying: boolean) => {
+    store.playing = newPlaying;
+});

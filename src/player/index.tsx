@@ -17,4 +17,4 @@ render(
     </Grid>
     </MuiThemeProvider>,
     document.getElementById('player'),
-);
+)

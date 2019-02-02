@@ -1,6 +1,6 @@
 import * as Tone from 'tone';
 (window as any).Tone = Tone;
-import { autorun, observable } from 'mobx';
+import { autorun, observable, action } from 'mobx';
 import { store } from './store';
 
 
@@ -29,7 +29,7 @@ autorun(() => {
     clearTimeout(timeoutId);
 
     // Reset index
-    noteIndex.set(-1);
+    setNoteIndex(-1);
 
     // If we are not playing we stop here.
     if (!isplaying) {
@@ -45,10 +45,14 @@ autorun(() => {
             synth.triggerAttackRelease(note, duration, time);
             noteIndex.set(i);
             if (i == length - 1) {
-                timeoutId = setTimeout(() => noteIndex.set(length), speed);
+                timeoutId = setTimeout(() => setNoteIndex(length), speed);
             }
         }, i * speed);
     };
 
     Tone.Transport.start('+0.1');
 });
+
+function setNoteIndex(newIndex: number) {
+    action(() => noteIndex.set(newIndex))();
+}
