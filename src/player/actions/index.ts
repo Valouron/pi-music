@@ -25,3 +25,7 @@ export const updateBpm = action((newBpm: number) => {
 export const updatePlaying = action((newPlaying: boolean) => {
     store.playing = newPlaying;
 });
+
+export const updateGamme = action((newGamme: string) => {
+    store.gamme = newGamme;
+});
