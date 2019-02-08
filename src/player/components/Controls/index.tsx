@@ -5,6 +5,10 @@ import { updateText, updateBase, updateBpm, updatePlaying, updateGamme } from '.
 import { Button, TextField, Select, MenuItem, Grid, Typography } from '@material-ui/core';
 import { Slider } from '@material-ui/lab'
 import { store } from '../../store';
+//import { SelectNote } from './SelectNote';
+//import { Mapping } from './Mapping';
+
+
 
 @observer
 export class Controls extends Component {
@@ -37,6 +41,7 @@ export class Controls extends Component {
                     <MenuItem value="DoMineur">Do Mineur Harmonique</MenuItem>
                     <MenuItem value="DoPenta">Do Pentatonique</MenuItem>
                     <MenuItem value="DoChroma">Do Chromatique</MenuItem>
+                    <MenuItem value="Rand">Aléatoire</MenuItem>
                     </Select>
                 </Grid>
             </Grid>
