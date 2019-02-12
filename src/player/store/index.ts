@@ -91,13 +91,13 @@ export const store = observable<Store>({
         },
         10: {
             note: "F5",
-            digit: "a",
+            digit: "A",
             duration: 0.5,
             volume: 0.5,
         },
         11: {
             note: "G5",
-            digit: "b",
+            digit: "B",
             duration: 0.5,
             volume: 0.5,
         },
@@ -110,8 +110,8 @@ export const store = observable<Store>({
             const digit = value.charCodeAt(i);
             if (digit >= 48 && digit < 58) {
                 notes.push(store.mapping[digit-48]);
-            } else if (digit >= "a".charCodeAt(0) && digit < "c".charCodeAt(0)) {
-                notes.push(store.mapping[digit-87])
+            } else if (digit >= "A".charCodeAt(0) && digit < "C".charCodeAt(0)) {
+                notes.push(store.mapping[digit-55])
             }
         }
         return notes;

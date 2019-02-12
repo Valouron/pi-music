@@ -22,13 +22,13 @@
         transition-duration: 0.5s;
         transition-timing-function: ease-out;
         transform-origin: 50% 50%;
-        color: gray;
+        color: rgb(255, 0, 0);
         font-size: 3em;
         &.active {
             transform: scale(2);
         }
         &.read {
-            color: white;
+            color: rgb(100, 100, 100);
         }
     }
 }
