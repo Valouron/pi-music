@@ -6,12 +6,12 @@ export interface Store {
     playing: boolean
     gamme: string
     mapping: { [value: number]: Note }
-    // Notes per second
-    speed: number
     // The input value
     inputText: string
     base: number
     bpm: number
+    mini: number
+    maxi: number
 }
 
 export interface Note {
@@ -19,6 +19,7 @@ export interface Note {
     note: string
     duration: number
     digit: number | string
+    instru: string
 }
 
 export const store = observable<Store>({
@@ -28,81 +29,94 @@ export const store = observable<Store>({
     inputText: '0123456789',
     base: 10,
     bpm: Tone.Transport.bpm.value,
+    mini: 0.05,
+    maxi: 2,
     mapping: {
         0: {
             note: "C4",
             digit: 0,
             duration: 0.5,
             volume: 0.5,
+            instru: "",
         },
         1: {
             note: "D4",
             digit: 1,
             duration: 0.5,
             volume: 0.5,
+            instru: "",
         },
         2: {
             note: "E4",
             digit: 2,
             duration: 0.5,
             volume: 0.5,
+            instru: "",
         },
         3: {
             note: "F4",
             digit: 3,
             duration: 0.5,
             volume: 0.5,
+            instru: "",
         },
         4: {
             note: "G4",
             digit: 4,
             duration: 0.5,
             volume: 0.5,
+            instru: "",
         },
         5: {
             note: "A4",
             digit: 5,
             duration: 0.5,
             volume: 0.5,
+            instru: "",
         },
         6: {
             note: "B4",
             digit: 6,
             duration: 0.5,
             volume: 0.5,
+            instru: "",
         },
         7: {
             note: "C5",
             digit: 7,
             duration: 0.5,
             volume: 0.5,
+            instru: "",
         },
         8: {
             note: "D5",
             digit: 8,
             duration: 0.5,
             volume: 0.5,
+            instru: "",
         },
         9: {
             note: "E5",
             digit: 9,
             duration: 0.5,
             volume: 0.5,
+            instru: "",
         },
         10: {
             note: "F5",
             digit: "A",
             duration: 0.5,
             volume: 0.5,
+            instru: "",
         },
         11: {
             note: "G5",
             digit: "B",
             duration: 0.5,
             volume: 0.5,
+            instru: "",
         },
     },
-    speed: 0.5,
     get notes() {
         const value = this.inputText;
         const notes: Note[] = [];
@@ -117,3 +131,116 @@ export const store = observable<Store>({
         return notes;
     }
 });
+
+export const instruments: { [key: string]: any } = {
+    //with Tone.Synth
+    "alien" : {
+        "oscillator": {
+            "type": "fatsine4",
+            "spread" : 60,
+            "count" : 10
+        },
+        "envelope": {
+            "attack": 0.4,
+            "decay": 0.01,
+            "sustain": 1,
+            "attackCurve" : "sine",
+            "releaseCurve" : "sine",
+            "release": 0.4
+        }
+    },
+    "wind" : {
+        "portamento" : 0.0,
+        "oscillator": {
+            "type": "square4"
+        },
+        "envelope": {
+            "attack": 2,
+            "decay": 1,
+            "sustain": 0.2,
+            "release": 2
+        }
+    },
+    "pulse" : {
+        "oscillator": {
+            "type": "pulse",
+            "width" : 0.8
+        },
+        "envelope": {
+            "attack": 0.01,
+            "decay": 0.05,
+            "sustain": 0.2,
+            "releaseCurve" : "bounce",
+            "release": 0.4
+        }
+    },
+    "lectric" : {
+        "portamento" : 0.2,
+        "oscillator": {
+            "type": "sawtooth"
+        },
+        "envelope": {
+            "attack": 0.03,
+            "decay": 0.1,
+            "sustain": 0.2,
+            "release": 0.02
+        }
+    },
+    "marimba" : {
+        "oscillator": {
+            "partials": [
+                1,
+                0,
+                2,
+                0,
+                3
+            ]
+        },
+        "envelope": {
+            "attack": 0.001,
+            "decay": 1.2,
+            "sustain": 0,
+            "release": 1.2
+        }
+    },
+    "steelpan" : {
+        "oscillator": {
+            "type": "fatcustom",
+              "partials" : [0.2, 1, 0, 0.5, 0.1],
+              "spread" : 40,
+              "count" : 3
+        },
+        "envelope": {
+            "attack": 0.001,
+            "decay": 1.6,
+            "sustain": 0,
+            "release": 1.6
+        }
+    },
+    "supersaw" : {
+        "oscillator" : {
+            "type" : "fatsawtooth",
+            "count" : 3,
+            "spread" : 30
+        },
+        "envelope": {
+            "attack": 0.01,
+            "decay": 0.1,
+            "sustain": 0.5,
+            "release": 0.4,
+            "attackCurve" : "exponential"
+        }
+    },
+    "treetrunk" : {
+        "oscillator": {
+            "type": "sine"
+        },
+        "envelope": {
+            "attack": 0.001,
+            "decay": 0.1,
+            "sustain": 0.1,
+            "release": 1.2
+        }
+    }
+}
+
