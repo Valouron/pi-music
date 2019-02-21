@@ -197,7 +197,7 @@ export const randInstruments = action(() => {
     }
     const base = store.base;
     for (let i = 0; i < base; ++i) {
-        const randNumber = Math.floor(Math.random()*list.length);
+        let randNumber = Math.floor(Math.random()*list.length);
         store.mapping[i].instru = list[randNumber];
     }
 });

@@ -8,7 +8,7 @@ export const noteIndex = observable.box(-1);
 // Tone.Transport.loopEnd = '1m'
 // Tone.Transport.loop = true
 
-let synth: any = new Tone.FMSynth().toMaster();
+let synth: any = new Tone.Synth().toMaster();
 let timeoutId: number = 0;
 
 //synth.oscillator.type = 'fmsquare';
@@ -44,8 +44,9 @@ autorun(() => {
     let clock: number = 0;
     for (let i = 0; i < length; ++i) {
         const { note, duration, volume, instru } = notes[i];
+        //synth.set(instruments[instru]);
         Tone.Transport.schedule((time: number) => {
-            synth = Tone.FMSynth(instruments[instru]).toMaster();
+            synth.set(instruments[instru]);
             synth.volume.value = 20 * (-1 + volume);
             synth.triggerAttackRelease(note, 0.9*duration, time);
             noteIndex.set(i);
@@ -54,7 +55,6 @@ autorun(() => {
             }
         }, clock);
         clock = clock + duration;
-
     }
     Tone.Transport.start('+0.1');
 });
