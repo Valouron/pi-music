@@ -9,16 +9,18 @@ export const noteIndex = observable.box(-1);
 // Tone.Transport.loop = true
 
 let synth: any = new Tone.Synth().toMaster();
-//let env: any = new Tone.OmniOscillator();
+//let osc: any = new Tone.OmniOscillator();
+
 
 let timeoutId: number = 0;
 
 //synth.oscillator.type = 'fmsquare';
 //synth.oscillator.type = 'sine';
 
+const defaultBpm = Tone.Transport.bpm.value;
 
 autorun(() => {
-    console.log("a");
+    //console.log("a");
 
     const notes = store.notes;
     const isplaying = store.playing;
@@ -41,12 +43,13 @@ autorun(() => {
     // Prepare the track we are about to play
 
     const length = notes.length;
-    let clock: number = 0;
+    let clock: number = Tone.now();
     for (let i = 0; i < length; ++i) {
         const { note, duration, volume, instru } = notes[i];
         //synth.set(instruments[instru]);
         Tone.Transport.schedule((time: number) => {
-            synth.set(instruments[instru]);
+            synth = new Tone.Synth(instruments[instru]).toMaster();
+            //synth.set(instruments[instru]);
             synth.volume.value = 20 * (-1 + volume);
             synth.triggerAttackRelease(note, 0.5*duration, time);
             noteIndex.set(i);
@@ -56,15 +59,24 @@ autorun(() => {
         }, clock);
         clock = clock + duration;
     }
+    Tone.Transport.bpm.value = defaultBpm;
     Tone.Transport.start('+0.1');
 });
 
+let timeoutId2 = 0;
+
 autorun(() => {
-    setTimeout(() => Tone.Transport.bpm.value , 3000);
+    clearTimeout(timeoutId2);
     console.log("b");
     store.playing;
     const bpm = store.bpm;
-    Tone.Transport.bpm.value = bpm;
+    //console.log(bpm);
+    //Tone.Transport.bpm.value = bpm;
+    timeoutId2 = setTimeout(() => {
+        Tone.Transport.bpm.value = bpm;
+        console.log("setbpm", bpm);
+        }
+        , 3000);
 });
 
 function setNoteIndex(newIndex: number) {
