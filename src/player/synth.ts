@@ -9,17 +9,17 @@ export const noteIndex = observable.box(-1);
 // Tone.Transport.loop = true
 
 let synth: any = new Tone.Synth().toMaster();
+//let env: any = new Tone.OmniOscillator();
+
 let timeoutId: number = 0;
 
 //synth.oscillator.type = 'fmsquare';
 //synth.oscillator.type = 'sine';
 
-autorun(() => {
-    const bpm = store.bpm;
-    Tone.Transport.bpm.value = bpm;
-});
 
 autorun(() => {
+    console.log("a");
+
     const notes = store.notes;
     const isplaying = store.playing;
 
@@ -48,7 +48,7 @@ autorun(() => {
         Tone.Transport.schedule((time: number) => {
             synth.set(instruments[instru]);
             synth.volume.value = 20 * (-1 + volume);
-            synth.triggerAttackRelease(note, 0.9*duration, time);
+            synth.triggerAttackRelease(note, 0.5*duration, time);
             noteIndex.set(i);
             if (i == length - 1) {
                 timeoutId = setTimeout(() => setNoteIndex(length), duration);
@@ -57,6 +57,14 @@ autorun(() => {
         clock = clock + duration;
     }
     Tone.Transport.start('+0.1');
+});
+
+autorun(() => {
+    setTimeout(() => Tone.Transport.bpm.value , 3000);
+    console.log("b");
+    store.playing;
+    const bpm = store.bpm;
+    Tone.Transport.bpm.value = bpm;
 });
 
 function setNoteIndex(newIndex: number) {

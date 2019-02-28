@@ -150,27 +150,30 @@ export const instruments: { [key: string]: any } = {
         }
     },
     "wind" : {
-        "portamento" : 0.0,
+        //"portamento" : 0.0,
         "oscillator": {
             "type": "square4"
         },
         "envelope": {
-            "attack": 2,
-            "decay": 1,
+            //"attack": 2,
+            "attack": 0.1,
+            //"decay": 0.2,
+            "decay": 0.1,
             "sustain": 0.2,
-            "release": 2
+            "release": 0.05
         }
     },
     "pulse" : {
         "oscillator": {
             "type": "pulse",
-            "width" : 0.8
+            //"width" : 0.8
+            "width" : 0.1
         },
         "envelope": {
             "attack": 0.01,
             "decay": 0.05,
             "sustain": 0.2,
-            "releaseCurve" : "bounce",
+            //"releaseCurve" : "bounce",
             "release": 0.4
         }
     },
