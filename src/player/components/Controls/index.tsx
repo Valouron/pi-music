@@ -2,11 +2,14 @@ import * as React from 'react';
 import { Component } from 'react';
 import { observer } from 'mobx-react';
 import {
-    updateText, updateBase, updateBpm, updatePlaying, updateGamme, updateMapping, updateDuration, updateVolume,
+    updateText, updateBase, updateBpm, updatePlaying,
+    updateGamme, updateMapping, updateDuration, updateVolume, updateNumber, updateFour,
     sortNotes, sortDurations, sortVolumes,
-    randDurations, randVolumes, randInstruments
+    randDurations, randVolumes, randInstruments,
+    resetDurations, resetVolumes, resetInstruments
 } from '../../actions';
-import { Button, TextField, Select, MenuItem, Grid, Typography } from '@material-ui/core';
+import { Button, TextField, Select, MenuItem, Grid, Typography, Checkbox } from '@material-ui/core';
+//import Checkbox from '@material-ui/core/Checkbox';
 import { Slider } from '@material-ui/lab'
 import { store } from '../../store';
 import { SelectNote } from './SelectNote';
@@ -64,8 +67,24 @@ export class Controls extends Component {
         randInstruments();
     }
 
+    durationReset() {
+        resetDurations();
+    }
+
+    volumeReset() {
+        resetVolumes();
+    }
+
+    instrumentReset() {
+        resetInstruments();
+    }
+
+    selectNumber(newNumber: string) {
+        updateNumber(newNumber);
+    }
+
     render() {
-        const { base, inputText, gamme, bpm, mini, maxi} = store;
+        const { base, inputText, gamme, bpm, mini, maxi } = store;
 
         const noteControls = [];
         for (const digit in store.mapping) {
@@ -119,7 +138,7 @@ export class Controls extends Component {
                         <Typography variant="subtitle1">Tempo</Typography>
                     </Grid>
                     <Grid item>
-                        <Slider value={bpm} max={600} min={20} onChange={(_, value) => this.bpmChanged(value)}></Slider>
+                        <Slider value={bpm} max={1000} min={20} onChange={(_, value) => this.bpmChanged(value)}></Slider>
                     </Grid>
                     <Grid item>
                         <Typography variant="subtitle1">Options</Typography>
@@ -134,6 +153,9 @@ export class Controls extends Component {
                         <Button variant="contained" color="default" onClick={() => this.durationSorted()}> Trier </Button>
                     </Grid>
                     <Grid item>
+                        <Button variant="contained" color="default" onClick={() => this.durationReset()}> Reset </Button>
+                    </Grid>
+                    <Grid item>
                         <Typography variant="subtitle1">Volumes</Typography>
                     </Grid>
                     <Grid item>
@@ -143,10 +165,16 @@ export class Controls extends Component {
                         <Button variant="contained" color="default" onClick={() => this.volumeSorted()}> Trier </Button>
                     </Grid>
                     <Grid item>
+                        <Button variant="contained" color="default" onClick={() => this.volumeReset()}> Reset </Button>
+                    </Grid>
+                    <Grid item>
                         <Typography variant="subtitle1">Instruments</Typography>
                     </Grid>
                     <Grid item>
                         <Button variant="contained" color="secondary" onClick={() => this.instrumentRandomized()}> Aléa </Button>
+                    </Grid>
+                    <Grid item>
+                        <Button variant="contained" color="default" onClick={() => this.instrumentReset()}> Reset </Button>
                     </Grid>
                 </Grid>
             </Grid>
@@ -165,6 +193,20 @@ export class Controls extends Component {
                         <MenuItem value="11">Base 11</MenuItem>
                         <MenuItem value="12">Base 12</MenuItem>
                     </Select>
+                </Grid>
+                <Grid item>
+                    <Select value={inputText} onChange={(ev) => this.selectNumber(ev.target.value)} >
+                        <MenuItem value="pi">Pi</MenuItem>
+                        <MenuItem value="e">e</MenuItem>
+                        <MenuItem value="phi">Phi</MenuItem>
+                        <MenuItem value="sqrt2">racine(2)</MenuItem>
+                        <MenuItem value="septieme">1/7</MenuItem>
+                        <MenuItem value="onzieme">1/11</MenuItem>
+                        <MenuItem value="rand">aléatoire</MenuItem>
+                    </Select>
+                </Grid>
+                <Grid item>
+                    <Checkbox value="checkedA" color="primary" onChange={() => updateFour(!store.fourpack)}/>
                 </Grid>
             </Grid>
         </>;
