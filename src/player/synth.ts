@@ -58,7 +58,7 @@ autorun(() => {
                 synth = new Tone.Synth(instruments[instru]).toMaster();
                 //synth.set(instruments[instru]);
                 synth.volume.value = 20 * (-1 + volume);
-                synth.triggerAttackRelease(note, 0.5*duration*60/bpm, time);
+                synth.triggerAttackRelease(note, 0.9*duration*60/bpm, time);
                 noteIndex.set(i);
                 if (i == length - 1) {
                     timeoutId = setTimeout(() => setNoteIndex(length), duration*60/bpm);

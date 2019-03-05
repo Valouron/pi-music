@@ -2,6 +2,7 @@ import { action } from 'mobx';
 import { store , instruments } from '../store';
 import * as bigint from 'big-integer';
 //import * as bignum from 'bignumber';
+//import * as big from 'big';
 import * as Tone from 'tone';
 (window as any).Tone = Tone;
 
@@ -246,5 +247,68 @@ export const updateNumber = action((newNumber: string) => {
 
 export const updateFour = action((newFour: boolean) => {
     store.fourpack = newFour;
-    console.log(store.fourpack);
+});
+
+export const updateOption = action((newOption: boolean) => {
+    store.advanced = newOption;
+});
+
+export const bonus1Text = action (() => {
+    resetDurations();
+    resetVolumes();
+    resetInstruments();
+    store.bpm = 120;
+    store.base = 5;
+    updateText("013324");
+    store.mapping[0].note = "C4";
+    store.mapping[1].note = "Gb4";
+    store.mapping[2].note = "Ab4";
+    store.mapping[3].note = "A4";
+    store.mapping[4].note = "B4";
+});
+
+export const bonus1Complete = action (() => {
+    bonus1Text();
+    store.mapping[0].volume = -1;
+    store.mapping[0].duration = 0.3;
+    store.mapping[1].duration = 0.7;
+    store.mapping[2].duration = 0.5;
+    store.mapping[3].duration = 0.7;
+    store.mapping[4].duration = 0.5;
+});
+
+export const updateLoop = action ((newLoop: boolean) => {
+    store.loop = newLoop;
+    Tone.Transport.loop = store.loop;
+    if (newLoop) {
+        Tone.Transport.loopEnd = '1m';
+    } else {
+        Tone.dispose();
+    }
+});
+
+export const bonus2Text = action (() => {
+    resetDurations();
+    resetVolumes();
+    resetInstruments();
+    store.bpm = 120;
+    store.base = 7;
+    updateText("5430000003333231111113333452222225555664");
+    store.mapping[0].note = "Gb4";
+    store.mapping[1].note = "G4";
+    store.mapping[2].note = "A4";
+    store.mapping[3].note = "B4";
+    store.mapping[4].note = "Db5";
+    store.mapping[5].note = "D5";
+    store.mapping[6].note = "E5";
+});
+
+export const bonus2Complete = action (() => {
+    bonus2Text();
+    store.mapping[0].volume = -1;
+    store.mapping[0].duration = 0.3;
+    store.mapping[1].duration = 0.6;
+    store.mapping[2].duration = 0.9;
+    store.mapping[3].duration = 1.2;
+    updateText("5310 4310 3110 0110 0010 0010 0010 0010 0010 3010 3010 3010 3110 2010 3110 1210 1010 1010 1010 1010 1010 3010 3010 3010 3110 4010 5110 2210 2010 2010 2010 2010 2010 5010 5010 5010 5110 6010 6110 4210");
 });
